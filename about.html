@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - CyberSecs</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #1a1a1a;
+            padding: 0 20px;
+            height: 60px;
+            border-bottom: 1px solid #333;
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex-grow: 1;
+            max-width: 600px;
+            margin-right: 25px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin: 0 14px;
+            font-size: 16px;
+            position: relative;
+            display: block;
+        }
+
+        .nav-links a.active {
+            color: #3080ff;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -22px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #3080ff;
+        }
+
+        .nav-links a.about-button {
+            background-color: #a0883c;
+            color: #121212;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-left: 14px;
+        }
+
+        .nav-links a.about-button::after {
+            content: none;
+        }
+
+        .nav-links .dropdown {
+            position: relative;
+        }
+
+        .nav-links .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1a1a1a;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            padding: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+
+        .nav-links .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .nav-links .dropdown-content a {
+            color: #ffffff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            margin: 0;
+        }
+
+        .nav-links .dropdown-content a:hover {
+            background-color: #333;
+        }
+
+        .background-video {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 80px 20px 20px 20px;
+            min-height: calc(100vh - 60px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        .about-container {
+            background-color: rgba(30, 30, 30, 0.8);
+            border-radius: 10px;
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: 90%;
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .creator-section {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .creator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 10px;
+            width: 45%;
+            max-width: 300px;
+            box-sizing: border-box;
+        }
+
+        .creator p {
+            color: #ccc;
+        }
+
+        .creator img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+
+        .copyright {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        .copyright a {
+            color: #3080ff;
+            text-decoration: none;
+        }
+
+        .shield-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 5px;
+            vertical-align: middle;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 80px 10px 20px 10px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .creator {
+                width: 90%;
+            }
+
+            .background-video {
+                width: 100%;
+                height: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="background-video" id="backgroundVideo">
+        <source src="Background.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="navbar">
+        <div class="logo">
+            <svg class="shield-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>CyberSec</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Threats</a>
+                <div class="dropdown-content">
+                    <a href="attack-targets.html">Attack Targets</a>
+                    <a href="phishing-attacks.html">Phishing Attacks</a>
+                    <a href="malware-infections.html">Malware Infections</a>
+                </div>
+            </div>
+            <a href="protect.html">Protection</a>
+            <a href="resources.html">Resources</a>
+            <a href="#" class="about-button active">About</a>
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="about-container">
+            <h1>About CyberSec</h1>
+            <p>CyberSec is a project dedicated to raising awareness about cybersecurity threats and providing resources to help individuals and organizations stay safe online. This project was created as part of our Cyber Security Project at Camarines Sur Polytechnic College.</p>
+
+            <h2>Meet the Creators</h2>
+            <div class="creator-section">
+                <div class="creator">
+                    <img src="member1.jpg" alt="No image">
+                    <h3>Nonito V. Frongoso Jr</h3>
+                    <p></p>
+                </div>
+                <div class="creator">
+                    <img src="member2.jpg" alt="No image">
+                    <h3>Mervic Tapan</h3>
+                    <p></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="copyright">
+            © 2024 CyberSecs. All rights reserved. | Inspired by <a href="https://hsr.hoyoverse.com/" target="_blank">Honkai: Star Rail</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('backgroundVideo');
+
+            video.addEventListener('error', function(e) {
+                console.error("Error with video playback:", e);
+                video.style.display = 'none';
+                document.body.style.background = '#121212';
+            });
+        });
+    </script>
+</body>
+</html>

@@ -5,33 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phishing Attacks - CyberShield</title>
     <style>
-        body {margin: 0;padding: 0;font-family: Arial, sans-serif;background-color: #1C1C1C;color: #ffffff;overflow-x: hidden;} /* Updated body background to Black */
+        body {margin: 0;padding: 0;font-family: Arial, sans-serif;background-color: #1C1C1C;color: #ffffff;overflow-x: hidden;}
         .navbar {display: flex;align-items: center;background-color: #1a1a1a;padding: 0 20px;height: 60px;border-bottom: 1px solid #333;position: sticky;top: 0;left: 0;width: 100%;z-index: 10;}
         .logo {display: flex;align-items: center;}
         .logo-icon {margin-right: 10px;cursor: pointer;position: relative;display: flex;align-items: center;}
-        .nav-links {display: flex;align-items: center; margin-left: auto;} /* Added margin-left: auto; to nav-links */
-        .nav-links a {color: #ffffff;text-decoration: none;margin-right: 20px; /* Reduced margin-right */font-size: 16px;position: relative;}
-        .nav-links a.active {color: #D14185;} /* Magenta Pink for active link */
-        .nav-links a.active::after {content: '';position: absolute;bottom: -22px;left: 0;width: 100%;height: 2px;background-color: #D14185;} /* Magenta Pink for active link underline */
-        .nav-links a.about-button {background-color: #a0883c; /* Soft Lavender for About button */color: #1C1C1C;padding: 10px 20px;border-radius: 5px;margin-right: 0;}
+        .nav-links {display: flex;align-items: center; margin-left: auto;}
+        .nav-links a {color: #ffffff;text-decoration: none;margin-right: 20px;font-size: 16px;position: relative;}
+        .nav-links a.active {color: #D14185;}
+        .nav-links a.active::after {content: '';position: absolute;bottom: -22px;left: 0;width: 100%;height: 2px;background-color: #D14185;}
+        .nav-links a.about-button {background-color: #a0883c;color: #1C1C1C;padding: 10px 20px;border-radius: 5px;margin-right: 0;}
         .nav-links a.about-button::after {content: none;}
         .background-video {position: fixed;right: 0;top: 0;width: 100vw;height: 100vh;z-index: -1;object-fit: cover;}
-        .sidebar {position: fixed;top: 60px;left: 0;width: 220px;height: 100vh;background: linear-gradient(to bottom, #3B1E47, #5E3B76); /* Dark Violet to Deep Purple gradient */border-right: 3px solid #D14185; /* Magenta Pink border */padding-top: 20px;z-index: 5;display: flex;flex-direction: column;align-items: flex-start;box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);}
+        .sidebar {position: fixed;top: 60px;left: 0;width: 220px;height: 100vh;background: linear-gradient(to bottom, #3B1E47, #5E3B76);border-right: 3px solid #D14185;padding-top: 20px;z-index: 5;display: flex;flex-direction: column;align-items: flex-start;box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);}
         .sidebar::after {content: '';position: absolute;bottom: 0;left: 0;width: 100%;height: 20px;background: url('curved-border.png') bottom repeat-x;}
-        .sidebar-link {display: flex;align-items: center;padding: 10px 20px;text-decoration: none;color: #F3EDE3; /* Ivory White for sidebar text */font-size: 14px;width: 100%;box-sizing: border-box;transition: background-color 0.2s;position: relative;gap: 10px;border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Slightly visible bottom border */}
-        .sidebar-link:hover {background-color: rgba(94, 59, 118, 0.5);} /* Deep Purple hover with opacity */
-        .sidebar-link.active {color: #D14185; /* Magenta Pink for active sidebar link */background-color: rgba(94, 59, 118, 0.7);} /* Deeper Deep Purple for active background */
-        .sidebar-link.active::before {content: '';position: absolute;left: 0;top: 0;bottom: 0;width: 3px;background-color: #D14185;} /* Magenta Pink active indicator */
+        .sidebar-link {display: flex;align-items: center;padding: 10px 20px;text-decoration: none;color: #F3EDE3;font-size: 14px;width: 100%;box-sizing: border-box;transition: background-color 0.2s;position: relative;gap: 10px;border-bottom: 1px solid rgba(255, 255, 255, 0.05);}
+        .sidebar-link:hover {background-color: rgba(94, 59, 118, 0.5);}
+        .sidebar-link.active {color: #D14185;background-color: rgba(94, 59, 118, 0.7);}
+        .sidebar-link.active::before {content: '';position: absolute;left: 0;top: 0;bottom: 0;width: 3px;background-color: #D14185;}
         .sidebar-sticker {width: 20px;height: auto;vertical-align: middle;}
         .sidebar-link.sub-link {padding-left: 45px;font-size: 13px;}
         .content {padding: 80px 20px 20px 240px;min-height: calc(100vh - 60px);display: flex;flex-direction: column;position: relative;z-index: 1;width: 80%;max-width: 1200px;margin: 0 auto;overflow-y: auto;max-height: calc(100vh - 80px);}
         .content::before {content: '';position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0, 0, 0, 0.5);z-index: -1;}
-         /* Style for content container for header, subheader, and paragraph */
-        .content-container {background-color: #F3EDE3; /* Ivory White for container background */border-radius: 10px;padding: 20px;margin-bottom: 20px;border: 2px solid #D14185; /* Magenta Pink container border */color: #1C1C1C; /* Black for container text */position: relative;}
-        .content-container h2, .content-container h3 {color: #B03050; /* Crimson Red for container headers */text-align: left;margin-top: 30px;}
-        .content-container p, .content-container li {color: #4A4A4A; /* Deep Gray for container paragraphs */text-align: left;line-height: 1.6;margin-bottom: 15px;}
-        .content-container::before {content: '';position: absolute;top: -10px;left: 10px;border-top: 20px solid #D14185; /* Magenta Pink top corner */border-left: 20px solid transparent;width: 0;height: 0;}
-        .content-container::after {content: '';position: absolute;bottom: -10px;right: 10px;border-bottom: 20px solid #D14185; /* Magenta Pink bottom corner */border-right: 20px solid transparent;width: 0;height: 0;}
+        .content-container {background-color: #F3EDE3;border-radius: 10px;padding: 20px;margin-bottom: 20px;border: 2px solid #D14185;color: #1C1C1C;position: relative;}
+        .content-container h2, .content-container h3 {color: #B03050;text-align: left;margin-top: 30px;}
+        .content-container p, .content-container li {color: #4A4A4A;text-align: left;line-height: 1.6;margin-bottom: 15px;}
+        .content-container::before {content: '';position: absolute;top: -10px;left: 10px;border-top: 20px solid #D14185;border-left: 20px solid transparent;width: 0;height: 0;}
+        .content-container::after {content: '';position: absolute;bottom: -10px;right: 10px;border-bottom: 20px solid #D14185;border-right: 20px solid transparent;width: 0;height: 0;}
         .content-container:last-child {margin-bottom: 0;}
         .recent-container {display: none;}
         .recent-container.show {display: block;}
@@ -42,8 +41,8 @@
         ul {line-height: 1.6;margin-bottom: 15px;padding-left: 20px;text-align: left;}
         li {margin-bottom: 8px;}
         .shield-icon {width: 24px;height: 24px;margin-right: 5px;vertical-align: middle;}
-        .animated-overview {color: #A97EA8; white-space: pre-line; /* Enable line breaks in text */} /* Soft Lavender for animated text */
-        #kafkaSticker {position: absolute;bottom: 20px;right: 20px;width: 100px;cursor: pointer;transition: transform 0.3s ease;z-index: 5;} /* Kafka sticker always shown */
+        .animated-overview {color: #A97EA8; white-space: pre-line;}
+        #kafkaSticker {position: absolute;bottom: 20px;right: 20px;width: 100px;cursor: pointer;transition: transform 0.3s ease;z-index: 5;}
         #kafkaSticker:hover {transform: scale(1.1);}
         #phishingExamples {display: none;background-color: rgba(30, 30, 30, 0.95);border: 2px solid #5a647a;border-radius: 10px;padding: 20px;margin-top: 20px;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);width: 80%;max-width: 600px;z-index: 1000;overflow-y: auto;max-height: 80vh;box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);}
         #phishingExamples.show {display: block;}
@@ -61,428 +60,424 @@
         .nav-links .dropdown:hover .dropdown-content {display: block;}
         .nav-        .nav-links .dropdown-content a.active-dropdown-item {color: #3080ff;}
 
-/* Modal for Email Phishing Example */
-#emailPhishingExampleModal {
-    display: none;
-    position: fixed;
-    z-index: 1001; /* Above other modals */
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.8); /* Dark background overlay */
-}
+        #emailPhishingExampleModal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
 
-#emailPhishingExampleModal .modal-content {
-    background-color: #F3EDE3; /* Ivory White for modal container */
-    margin: 10% auto; /* 10% from the top and centered */
-    padding: 20px;
-    border: 2px solid #D14185; /* Magenta Pink modal container border */
-    border-radius: 10px;
-    width: 80%; /* Could be more or less, depending on screen size */
-    max-width: 600px; /* Maximum width to keep it readable */
-    position: relative; /* For close button positioning */
-    color: #1C1C1C; /* Black for modal container text */
-}
+        #emailPhishingExampleModal .modal-content {
+            background-color: #F3EDE3;
+            margin: 10% auto;
+            padding: 20px;
+            border: 2px solid #D14185;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            color: #1C1C1C;
+        }
 
-#emailPhishingExampleModal.show {
-    display: block;
-}
+        #emailPhishingExampleModal.show {
+            display: block;
+        }
 
-#emailPhishingExampleModal .close-button {
-    color: #aaa;
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
+        #emailPhishingExampleModal .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-#emailPhishingExampleModal .close-button:hover,
-#emailPhishingExampleModal .close-button:focus {
-    color: black; /* Darken close button on hover */
-    text-decoration: none;
-    cursor: pointer;
-}
+        #emailPhishingExampleModal .close-button:hover,
+        #emailPhishingExampleModal .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
 
 
-@media (max-width: 768px) {.nav-links {display: none;}.content {width: 95%;padding: 80px 15px 15px 15px;margin-left: auto;margin-right: auto;padding-left: 15px;}.sidebar {display: none;}#kafkaSticker {width: 100px;bottom: 10px;right: 10px;}#phishingExamples {width: 95%;max-width: none;}}
-</style>
+        @media (max-width: 768px) {.nav-links {display: none;}.content {width: 95%;padding: 80px 15px 15px 15px;margin-left: auto;margin-right: auto;padding-left: 15px;}.sidebar {display: none;}#kafkaSticker {width: 100px;bottom: 10px;right: 10px;}#phishingExamples {width: 95%;max-width: none;}}
+    </style>
 </head>
 <body>
-<video autoplay muted loop class="background-video" id="backgroundVideo">
-<source src="Kafka/Kafka.mp4" type="video/mp4"> <!-- Updated background video to Kafka.mp4 -->
-Your browser does not support the video tag.
-</video>
+    <video autoplay muted loop class="background-video" id="backgroundVideo">
+        <source src="Kafka/Kafka.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
 
-<!-- Navbar from mp3.html -->
-<div class="navbar">
-<div class="logo">
-    <svg class="shield-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-    </svg>
-    <span>CyberSec</span>
-</div>
-<div class="nav-links">
-    <a href="index.html">Home</a>
-    <div class="dropdown">
-        <a href="#" class="active">Threats</a>
-        <div class="dropdown-content">
-            <a href="attack-targets.html">Attack Targets</a>
-            <a href="phishing-attacks.html" class="active-dropdown-item">Phishing Attacks</a>
-            <a href="malware-infections.html">Malware Infections</a>
+    <div class="navbar">
+        <div class="logo">
+            <svg class="shield-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>CyberSecs</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <div class="dropdown">
+                <a href="#" class="active">Threats</a>
+                <div class="dropdown-content">
+                    <a href="attack-targets.html">Attack Targets</a>
+                    <a href="phishing-attacks.html" class="active-dropdown-item">Phishing Attacks</a>
+                    <a href="malware-infections.html">Malware Infections</a>
+                </div>
+            </div>
+            <a href="protect.html">Protection</a>
+            <a href="resources.html">Resources</a>
+            <a href="about.html" class="about-button">About</a>
         </div>
     </div>
-    <a href="#">Protection</a>
-    <a href="#">Resources</a>
-    <a href="#" class="about-button">About</a>
-</div>
-</div>
-<!-- End Navbar -->
 
-<div class="sidebar">
-<a href="#" class="sidebar-link" id="overviewLink" onclick="showOverview()">Overview</a>
-<a href="#" class="sidebar-link" id="howPhishingWorksLink" onclick="showHowPhishingWorks()">
-    <img src="Kafka/Sticker_PPG_06_Kafka_03.webp" alt="How Phishing Works Sticker" class="sidebar-sticker">
-    How Phishing works
-</a>
-<a href="#" class="sidebar-link sub-link" id="emailPhishingLink" onclick="showEmailPhishing()">Email Phishing</a>
-<a href="#" class="sidebar-link sub-link" id="spearPhishingLink" onclick="showSpearPhishing()">Spear Phishing</a>
-<a href="#" class="sidebar-link sub-link" id="clonePhishingLink" onclick="showClonePhishing()">Clone Phishing</a>
-<a href="#" class="sidebar-link" id="whalingLink" onclick="showWhaling()">
-    <img src="Kafka/Sticker_PPG_02_Kafka_01.webp" alt="Whaling Sticker" class="sidebar-sticker">
-    Whaling
-</a>
-<a href="#" class="sidebar-link" id="smishingVishingLink" onclick="showSmishingVishing()">
-    <img src="Kafka/Sticker_PPG_06_Kafka_04.webp" alt="Smishing and Vishing Sticker" class="sidebar-sticker">
-    Smishing and Vishing
-</a>
-<a href="#" class="sidebar-link" id="fakeWebsitesLink" onclick="showFakeWebsites()">
-    <img src="Kafka/Sticker_PPG_06_Kafka_02.webp" alt="Fake Websites Sticker" class="sidebar-sticker">
-    Fake Websites
-</a>
-</div>
-
-<div class="content">
-<div id="mainContent">
-    <div id="overviewSection" class="content-container recent-container">
-        <h2>Overview</h2>
-        <p class="animated-overview" id="overviewText"></p> <!-- Empty paragraph for typing animation -->
+    <div class="sidebar">
+        <a href="#" class="sidebar-link" id="overviewLink" onclick="showOverview()">Overview</a>
+        <a href="#" class="sidebar-link" id="howPhishingWorksLink" onclick="showHowPhishingWorks()">
+            <img src="Kafka/Sticker_PPG_06_Kafka_03.webp" alt="How Phishing Works Sticker" class="sidebar-sticker">
+            How Phishing works
+        </a>
+        <a href="#" class="sidebar-link sub-link" id="emailPhishingLink" onclick="showEmailPhishing()">Email Phishing</a>
+        <a href="#" class="sidebar-link sub-link" id="spearPhishingLink" onclick="showSpearPhishing()">Spear Phishing</a>
+        <a href="#" class="sidebar-link sub-link" id="clonePhishingLink" onclick="showClonePhishing()">Clone Phishing</a>
+        <a href="#" class="sidebar-link" id="whalingLink" onclick="showWhaling()">
+            <img src="Kafka/Sticker_PPG_02_Kafka_01.webp" alt="Whaling Sticker" class="sidebar-sticker">
+            Whaling
+        </a>
+        <a href="#" class="sidebar-link" id="smishingVishingLink" onclick="showSmishingVishing()">
+            <img src="Kafka/Sticker_PPG_06_Kafka_04.webp" alt="Smishing and Vishing Sticker" class="sidebar-sticker">
+            Smishing and Vishing
+        </a>
+        <a href="#" class="sidebar-link" id="fakeWebsitesLink" onclick="showFakeWebsites()">
+            <img src="Kafka/Sticker_PPG_06_Kafka_02.webp" alt="Fake Websites Sticker" class="sidebar-sticker">
+            Fake Websites
+        </a>
     </div>
 
-    <div id="howPhishingWorksSection" class="content-container recent-container">
-        <h2>How Phishing Works</h2>
-        <p>Phishing attacks generally follow a similar pattern:</p>
-        <ol>
-            <li><strong>Deceptive Communication:</strong> Attackers send out emails, messages, or create websites that convincingly mimic legitimate entities.</li>
-            <li><strong>Luring Tactics:</strong> They use various tactics to lure victims, such as creating a sense of urgency, offering enticing deals, or instilling fear.</li>
-            <li><strong>Information Harvesting:</strong> Once victims click on malicious links or interact with fake websites, they are prompted to enter sensitive information.</li>
-            <li><strong>Exploitation:</strong> Attackers use the harvested information to gain unauthorized access to accounts, steal money, or commit identity theft.</li>
-        </ol>
-        <p>Understanding these steps can help individuals and organizations better recognize and avoid phishing attempts.</p>
-    </div>
+    <div class="content">
+        <div id="mainContent">
+            <div id="overviewSection" class="content-container recent-container">
+                <h2>Overview</h2>
+                <p class="animated-overview" id="overviewText"></p>
+            </div>
 
-     <div id="emailPhishingSection" class="content-container recent-container">
-        <h3>Email Phishing</h3>
-        <p>Email phishing remains one of the most prevalent forms of cyber attack due to its effectiveness and wide reach. Attackers craft deceptive emails that closely resemble legitimate communications from trusted organizations, such as banks, social media platforms, or online services.</p>
-        <p>These emails often employ social engineering tactics to manipulate recipients into taking immediate action. Common elements include:</p>
-        <ul>
-            <li><strong>Urgency:</strong> Creating a sense of immediate action required to avoid negative consequences, such as account suspension or loss of access.</li>
-            <li><strong>Authority Impersonation:</strong> Mimicking official logos, branding, and language of reputable organizations to appear legitimate.</li>
-            <li><strong>Deceptive Links:</strong> Embedding malicious links that redirect users to fake login pages or malware-infected websites.</li>
-            <li><strong>Appeals to Emotion:</strong> Evoking emotions like fear, curiosity, or greed to cloud judgment and encourage impulsive actions.</li>
-        </ul>
-        <p>By understanding these tactics, individuals can become more discerning and avoid falling victim to email phishing scams.</p>
-        <img src="Kafka/Sticker_PPG_06_Kafka_04.webp" alt="Kafka Sticker" id="kafkaSticker" onclick="showEmailPhishingExampleModal()">
-    </div>
+            <div id="howPhishingWorksSection" class="content-container recent-container">
+                <h2>How Phishing Works</h2>
+                <p>Phishing attacks generally follow a similar pattern:</p>
+                <ol>
+                    <li><strong>Deceptive Communication:</strong> Attackers send out emails, messages, or create websites that convincingly mimic legitimate entities.</li>
+                    <li><strong>Luring Tactics:</strong> They use various tactics to lure victims, such as creating a sense of urgency, offering enticing deals, or instilling fear.</li>
+                    <li><strong>Information Harvesting:</strong> Once victims click on malicious links or interact with fake websites, they are prompted to enter sensitive information.</li>
+                    <li><strong>Exploitation:</strong> Attackers use the harvested information to gain unauthorized access to accounts, steal money, or commit identity theft.</li>
+                </ol>
+                <p>Understanding these steps can help individuals and organizations better recognize and avoid phishing attempts.</p>
+            </div>
 
-     <div id="spearPhishingSection" class="content-container recent-container">
-        <h3>Spear Phishing</h3>
-        <p>Spear phishing is a highly targeted form of phishing. Instead of sending mass emails, attackers customize their messages for a specific individual or organization. They often gather personal information about their targets to make the phishing attempt more believable and effective. This personalized approach significantly increases the success rate of these attacks.</p>
-        <p>In spear phishing, attackers invest time in researching their targets to gather personal details, such as names, job titles, email addresses, and organizational hierarchies. They may scour social media profiles, professional networking sites, and company websites to compile this information. The more information they gather, the more convincing their phishing attempts become.</p>
-        <p>Example Scenario:</p>
-        <p>Imagine Sarah, an employee at a tech company. She receives an email that appears to be from her CEO, John Doe. The email addresses her by name and references a project Sarah is currently working on. The email requests Sarah to urgently update her login credentials through a link provided, citing a recent security breach.</p>
-        <p>Because the email is personalized and appears to come from a figure of authority within her company, Sarah might be more inclined to trust it and follow the instructions without questioning its legitimacy. This is the power of spear phishing – leveraging personalization to bypass typical security awareness.</p>
-    </div>
+             <div id="emailPhishingSection" class="content-container recent-container">
+                <h3>Email Phishing</h3>
+                <p>Email phishing remains one of the most prevalent forms of cyber attack due to its effectiveness and wide reach. Attackers craft deceptive emails that closely resemble legitimate communications from trusted organizations, such as banks, social media platforms, or online services.</p>
+                <p>These emails often employ social engineering tactics to manipulate recipients into taking immediate action. Common elements include:</p>
+                <ul>
+                    <li><strong>Urgency:</strong> Creating a sense of immediate action required to avoid negative consequences, such as account suspension or loss of access.</li>
+                    <li><strong>Authority Impersonation:</strong> Mimicking official logos, branding, and language of reputable organizations to appear legitimate.</li>
+                    <li><strong>Deceptive Links:</strong> Embedding malicious links that redirect users to fake login pages or malware-infected websites.</li>
+                    <li><strong>Appeals to Emotion:</strong> Evoking emotions like fear, curiosity, or greed to cloud judgment and encourage impulsive actions.</li>
+                </ul>
+                <p>By understanding these tactics, individuals can become more discerning and avoid falling victim to email phishing scams.</p>
+                <img src="Kafka/Sticker_PPG_06_Kafka_04.webp" alt="Kafka Sticker" id="kafkaSticker" onclick="showEmailPhishingExampleModal()">
+            </div>
 
-    <div id="clonePhishingSection" class="content-container recent-container">
-        <h3>Clone Phishing</h3>
-        <p>Clone phishing is a sophisticated technique that exploits users' trust and familiarity with legitimate emails they have previously received. Attackers create replicas of genuine emails and replace safe elements with malicious substitutes to deceive recipients.</p>
-        <p>The method behind clone phishing typically involves:</p>
-        <ol>
-            <li><strong>Acquisition of Legitimate Email:</strong> Attackers obtain a genuine email that has been previously delivered to the target, often through data breaches or compromised email accounts.</li>
-            <li><strong>Duplication and Modification:</strong> They meticulously clone the legitimate email, ensuring that it closely resembles the original in terms of sender address, subject line, formatting, and content.</li>
-            <li><strong>Malicious Element Substitution:</strong> Attackers replace safe components within the cloned email, such as URLs or attachments, with malicious alternatives. These malicious elements are designed to redirect victims to phishing websites or deliver malware payloads.</li>
-            <li><strong>Delivery to Victims:</strong> The cloned email is then sent to the intended victims, often from a spoofed email address that closely mimics the original sender's address to enhance credibility.</li>
-        </ol>
-        <p>Due to its high degree of similarity to legitimate emails, clone phishing poses a significant threat, as recipients may be less likely to scrutinize familiar-looking communications.</p>
-    </div>
+             <div id="spearPhishingSection" class="content-container recent-container">
+                <h3>Spear Phishing</h3>
+                <p>Spear phishing is a highly targeted form of phishing. Instead of sending mass emails, attackers customize their messages for a specific individual or organization. They often gather personal information about their targets to make the phishing attempt more believable and effective. This personalized approach significantly increases the success rate of these attacks.</p>
+                <p>In spear phishing, attackers invest time in researching their targets to gather personal details, such as names, job titles, email addresses, and organizational hierarchies. They may scour social media profiles, professional networking sites, and company websites to compile this information. The more information they gather, the more convincing their phishing attempts become.</p>
+                <p>Example Scenario:</p>
+                <p>Imagine Sarah, an employee at a tech company. She receives an email that appears to be from her CEO, John Doe. The email addresses her by name and references a project Sarah is currently working on. The email requests Sarah to urgently update her login credentials through a link provided, citing a recent security breach.</p>
+                <p>Because the email is personalized and appears to come from a figure of authority within her company, Sarah might be more inclined to trust it and follow the instructions without questioning its legitimacy. This is the power of spear phishing – leveraging personalization to bypass typical security awareness.</p>
+            </div>
 
-     <div id="whalingSection" class="content-container recent-container">
-        <h2>Whaling</h2>
-        <p>Whaling attacks are a specific type of phishing that target high-profile individuals, such as CEOs, executives, or board members, within organizations. These attacks are characterized by their highly sophisticated nature, meticulous planning, and personalized approach to deceive high-value targets.</p>
-        <p>Attackers behind whaling campaigns recognize that top executives wield significant influence and access to sensitive information within a company. Consequently, successful whaling attacks can yield substantial rewards, including financial gains, access to confidential data, or reputational damage.</p>
-        <p>Key characteristics of whaling attacks include:</p>
-        <ul>
-            <li><strong>Targeting High-Value Individuals:</strong> Whaling campaigns specifically focus on individuals in leadership positions who possess extensive authority and access to critical resources.</li>
-            <li><strong>Advanced Social Engineering:</strong> Attackers employ sophisticated social engineering tactics to craft highly personalized and convincing phishing messages tailored to the executive's profile.</li>
-            <li><strong>Credible Impersonation:</strong> Whaling emails often impersonate trusted figures of authority, such as legal counsels, government officials, or business partners, to establish trust and legitimacy.</li>
-            <li><strong>High-Stakes Scenarios:</strong> Whaling attacks frequently involve scenarios that convey urgency and high stakes, such as legal matters, financial transactions, or security breaches, to pressure executives into immediate action.</li>
-        </ul>
-        <p>Given the potential for significant financial and reputational damage, organizations must implement robust security measures and employee education programs to defend against whaling attacks effectively.</p>
-    </div>
+            <div id="clonePhishingSection" class="content-container recent-container">
+                <h3>Clone Phishing</h3>
+                <p>Clone phishing is a sophisticated technique that exploits users' trust and familiarity with legitimate emails they have previously received. Attackers create replicas of genuine emails and replace safe elements with malicious substitutes to deceive recipients.</p>
+                <p>The method behind clone phishing typically involves:</p>
+                <ol>
+                    <li><strong>Acquisition of Legitimate Email:</strong> Attackers obtain a genuine email that has been previously delivered to the target, often through data breaches or compromised email accounts.</li>
+                    <li><strong>Duplication and Modification:</strong> They meticulously clone the legitimate email, ensuring that it closely resembles the original in terms of sender address, subject line, formatting, and content.</li>
+                    <li><strong>Malicious Element Substitution:</strong> Attackers replace safe components within the cloned email, such as URLs or attachments, with malicious alternatives. These malicious elements are designed to redirect victims to phishing websites or deliver malware payloads.</li>
+                    <li><strong>Delivery to Victims:</strong> The cloned email is then sent to the intended victims, often from a spoofed email address that closely mimics the original sender's address to enhance credibility.</li>
+                </ol>
+                <p>Due to its high degree of similarity to legitimate emails, clone phishing poses a significant threat, as recipients may be less likely to scrutinize familiar-looking communications.</p>
+            </div>
 
-    <div id="smishingVishingSection" class="content-container recent-container">
-        <h2>Smishing and Vishing</h2>
-        <p>Smishing (SMS phishing) and vishing (voice phishing) represent phishing attacks executed through mobile communication channels, specifically leveraging SMS text messages and voice calls. These techniques exploit the widespread use of mobile devices and users' inclination to trust communications received via these channels.</p>
-        <div class="content-container">
-            <h3>Smishing</h3>
-            <p>Smishing attacks involve the use of deceptive text messages to lure recipients into revealing sensitive information, downloading malware, or visiting malicious websites. These messages are often crafted to mimic notifications from trusted entities, such as banks, retailers, or government agencies, to deceive recipients.</p>
-            <p>Attackers exploit the limited screen space and notification-driven nature of SMS to create a sense of urgency and compel immediate action. Smishing messages commonly employ tactics such as:</p>
-            <ul>
-                <li><strong>Account Compromise Alerts:</strong> Messages may warn recipients of unauthorized access to their accounts and prompt immediate verification to prevent suspension or closure.</li>
-                <li><strong>Fake Prize Notifications:</strong> Attackers may entice victims with messages claiming they have won prizes or rewards, requiring them to click on a link to claim their winnings.</li>
-                <li><strong>Urgent Action Requests:</strong> Smishing messages often demand immediate action to resolve purported issues, such as unpaid bills, missed deliveries, or security breaches, to pressure recipients into compliance.</li>
-                <li><strong>Malicious Links:</strong> Smishing messages invariably contain malicious links that redirect victims to phishing websites or initiate malware downloads upon clicking.</li>
-            </ul>
+             <div id="whalingSection" class="content-container recent-container">
+                <h2>Whaling</h2>
+                <p>Whaling attacks are a specific type of phishing that target high-profile individuals, such as CEOs, executives, or board members, within organizations. These attacks are characterized by their highly sophisticated nature, meticulous planning, and personalized approach to deceive high-value targets.</p>
+                <p>Attackers behind whaling campaigns recognize that top executives wield significant influence and access to sensitive information within a company. Consequently, successful whaling attacks can yield substantial rewards, including financial gains, access to confidential data, or reputational damage.</p>
+                <p>Key characteristics of whaling attacks include:</p>
+                <ul>
+                    <li><strong>Targeting High-Value Individuals:</strong> Whaling campaigns specifically focus on individuals in leadership positions who possess extensive authority and access to critical resources.</li>
+                    <li><strong>Advanced Social Engineering:</strong> Attackers employ sophisticated social engineering tactics to craft highly personalized and convincing phishing messages tailored to the executive's profile.</li>
+                    <li><strong>Credible Impersonation:</strong> Whaling emails often impersonate trusted figures of authority, such as legal counsels, government officials, or business partners, to establish trust and legitimacy.</li>
+                    <li><strong>High-Stakes Scenarios:</strong> Whaling attacks frequently involve scenarios that convey urgency and high stakes, such as legal matters, financial transactions, or security breaches, to pressure executives into immediate action.</li>
+                </ul>
+                <p>Given the potential for significant financial and reputational damage, organizations must implement robust security measures and employee education programs to defend against whaling attacks effectively.</p>
+            </div>
+
+            <div id="smishingVishingSection" class="content-container recent-container">
+                <h2>Smishing and Vishing</h2>
+                <p>Smishing (SMS phishing) and vishing (voice phishing) represent phishing attacks executed through mobile communication channels, specifically leveraging SMS text messages and voice calls. These techniques exploit the widespread use of mobile devices and users' inclination to trust communications received via these channels.</p>
+                <div class="content-container">
+                    <h3>Smishing</h3>
+                    <p>Smishing attacks involve the use of deceptive text messages to lure recipients into revealing sensitive information, downloading malware, or visiting malicious websites. These messages are often crafted to mimic notifications from trusted entities, such as banks, retailers, or government agencies, to deceive recipients.</p>
+                    <p>Attackers exploit the limited screen space and notification-driven nature of SMS to create a sense of urgency and compel immediate action. Smishing messages commonly employ tactics such as:</p>
+                    <ul>
+                        <li><strong>Account Compromise Alerts:</strong> Messages may warn recipients of unauthorized access to their accounts and prompt immediate verification to prevent suspension or closure.</li>
+                        <li><strong>Fake Prize Notifications:</strong> Attackers may entice victims with messages claiming they have won prizes or rewards, requiring them to click on a link to claim their winnings.</li>
+                        <li><strong>Urgent Action Requests:</strong> Smishing messages often demand immediate action to resolve purported issues, such as unpaid bills, missed deliveries, or security breaches, to pressure recipients into compliance.</li>
+                        <li><strong>Malicious Links:</strong> Smishing messages invariably contain malicious links that redirect victims to phishing websites or initiate malware downloads upon clicking.</li>
+                    </ul>
+                </div>
+
+                <div class="content-container">
+                    <h3>Vishing</h3>
+                    <p>Vishing attacks employ voice calls to deceive individuals into divulging sensitive information or performing actions that compromise their security. Attackers often impersonate legitimate entities, such as customer service representatives, technical support agents, or government officials, to manipulate victims into compliance.</p>
+                    <p>Vishing attacks leverage the authority and trust associated with voice communication to gain victims' confidence. Attackers may employ various social engineering techniques during vishing calls, including:</p>
+                    <ul>
+                        <li><strong>Authority Impersonation:</strong> Attackers convincingly impersonate trusted figures to exploit victims' deference to authority and elicit cooperation.</li>
+                        <li><strong>Emotional Manipulation:</strong> Vishing calls often evoke emotions like fear, urgency, or empathy to cloud victims' judgment and encourage impulsive decisions.</li>
+                        <li><strong>Technical Jargon:</strong> Attackers may use technical terms and jargon to confuse victims and create an illusion of expertise, making their requests appear legitimate.</li>
+                        <li><strong>Information Elicitation:</strong> Vishing calls skillfully extract sensitive information through conversational cues, leading questions, and persuasive language, often without raising suspicion.</li>
+                    </ul>
+                </div>
+                <p>Both smishing and vishing attacks capitalize on the immediacy and perceived trustworthiness of mobile communication channels, making them potent tools in the hands of cybercriminals.</p>
+            </div>
+
+            <div id="fakeWebsitesSection" class="content-container recent-container">
+                <h2>Fake Websites</h2>
+                <p>Fake websites, also referred to as spoofed or malicious websites, are deceptive imitations of legitimate websites meticulously crafted by cybercriminals to steal users' sensitive information, such as login credentials, financial details, or personal data. These fraudulent websites are designed to closely mirror the appearance and functionality of authentic websites, making it challenging for users to discern between the genuine and fake.</p>
+                <p>Attackers invest considerable effort in replicating every aspect of legitimate websites to enhance their deceptive effectiveness. Key characteristics of fake websites include:</p>
+                <ul>
+                    <li><strong>Visual Deception:</strong> Fake websites meticulously replicate the design, layout, branding elements, and content of legitimate websites to create a convincing facade.</li>
+                    <li><strong>Domain Name Mimicry:</strong> Attackers employ domain names that closely resemble those of legitimate websites, often utilizing tactics such as typosquatting or using alternative domain extensions to deceive users.</li>
+                    <li><strong>Login Page Replication:</strong> Fake websites commonly target login pages of popular online services, including banks, email providers, social media platforms, and e-commerce sites, to capture user credentials.</li>
+                    <li><strong>Subtle URL Variations:</strong> Malicious URLs may incorporate subtle variations or misspellings of legitimate domain names, often going unnoticed by unsuspecting users.</li>
+                </ul>
+                <p>Users who fall victim to fake websites risk unknowingly divulging sensitive information to cybercriminals, leading to identity theft, financial fraud, or unauthorized access to their online accounts.</p>
+            </div>
         </div>
 
-        <div class="content-container">
-            <h3>Vishing</h3>
-            <p>Vishing attacks employ voice calls to deceive individuals into divulging sensitive information or performing actions that compromise their security. Attackers often impersonate legitimate entities, such as customer service representatives, technical support agents, or government officials, to manipulate victims into compliance.</p>
-            <p>Vishing attacks leverage the authority and trust associated with voice communication to gain victims' confidence. Attackers may employ various social engineering techniques during vishing calls, including:</p>
-            <ul>
-                <li><strong>Authority Impersonation:</strong> Attackers convincingly impersonate trusted figures to exploit victims' deference to authority and elicit cooperation.</li>
-                <li><strong>Emotional Manipulation:</strong> Vishing calls often evoke emotions like fear, urgency, or empathy to cloud victims' judgment and encourage impulsive decisions.</li>
-                <li><strong>Technical Jargon:</strong> Attackers may use technical terms and jargon to confuse victims and create an illusion of expertise, making their requests appear legitimate.</li>
-                <li><strong>Information Elicitation:</strong> Vishing calls skillfully extract sensitive information through conversational cues, leading questions, and persuasive language, often without raising suspicion.</li>
-            </ul>
+        <div id="emailPhishingExampleModal" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="hideEmailPhishingExampleModal()">×</span>
+                <h2>Example of Email Phishing</h2>
+                <p>Here's an example of a typical email phishing attempt:</p>
+                <div style="background-color:#f0f0f0; color:#333; border: 1px solid #ccc; padding: 15px; border-radius: 5px; margin-top: 10px;">
+                    <p><b>Subject:</b> Urgent Security Alert: Verify Your Account Now</p>
+                    <p><b>From:</b> YourBank Security <security@yourbank-support.com> (Spoofed)</p>
+                    <p><b>To:</b> Your Email Address</p>
+                    <hr>
+                    <p>Dear Valued Customer,</p>
+                    <p>We have detected unusual activity on your account. For security reasons, we require you to verify your identity immediately to prevent account suspension.</p>
+                    <p>Please click on the link below to verify your account:</p>
+                    <p><a href="http://fake-bank-verification.com/login" style="color:#007bff; text-decoration:none;">Verify Your Account Now</a> (Malicious Link - Do Not Click)</p>
+                    <p>If you fail to verify your account within 24 hours, your account will be temporarily suspended.</p>
+                    <p>Thank you for your cooperation.</p>
+                    <p>Sincerely,</p>
+                    <p>The YourBank Security Team</p>
+                </div>
+                <p style="margin-top: 10px; font-size: smaller;"><b>Note:</b> This is a phishing example. Do not click on the link. Legitimate organizations will rarely ask for sensitive information via email.</p>
+            </div>
         </div>
-        <p>Both smishing and vishing attacks capitalize on the immediacy and perceived trustworthiness of mobile communication channels, making them potent tools in the hands of cybercriminals.</p>
     </div>
 
-    <div id="fakeWebsitesSection" class="content-container recent-container">
-        <h2>Fake Websites</h2>
-        <p>Fake websites, also referred to as spoofed or malicious websites, are deceptive imitations of legitimate websites meticulously crafted by cybercriminals to steal users' sensitive information, such as login credentials, financial details, or personal data. These fraudulent websites are designed to closely mirror the appearance and functionality of authentic websites, making it challenging for users to discern between the genuine and fake.</p>
-        <p>Attackers invest considerable effort in replicating every aspect of legitimate websites to enhance their deceptive effectiveness. Key characteristics of fake websites include:</p>
-        <ul>
-            <li><strong>Visual Deception:</strong> Fake websites meticulously replicate the design, layout, branding elements, and content of legitimate websites to create a convincing facade.</li>
-            <li><strong>Domain Name Mimicry:</strong> Attackers employ domain names that closely resemble those of legitimate websites, often utilizing tactics such as typosquatting or using alternative domain extensions to deceive users.</li>
-            <li><strong>Login Page Replication:</strong> Fake websites commonly target login pages of popular online services, including banks, email providers, social media platforms, and e-commerce sites, to capture user credentials.</li>
-            <li><strong>Subtle URL Variations:</strong> Malicious URLs may incorporate subtle variations or misspellings of legitimate domain names, often going unnoticed by unsuspecting users.</li>
-        </ul>
-        <p>Users who fall victim to fake websites risk unknowingly divulging sensitive information to cybercriminals, leading to identity theft, financial fraud, or unauthorized access to their online accounts.</p>
-    </div>
-</div>
 
-<!-- Email Phishing Example Modal -->
-<div id="emailPhishingExampleModal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" onclick="hideEmailPhishingExampleModal()">×</span>
-        <h2>Example of Email Phishing</h2>
-        <p>Here's an example of a typical email phishing attempt:</p>
-        <div style="background-color:#f0f0f0; color:#333; border: 1px solid #ccc; padding: 15px; border-radius: 5px; margin-top: 10px;">
-            <p><b>Subject:</b> Urgent Security Alert: Verify Your Account Now</p>
-            <p><b>From:</b> YourBank Security <security@yourbank-support.com> (Spoofed)</p>
-            <p><b>To:</b> Your Email Address</p>
-            <hr>
-            <p>Dear Valued Customer,</p>
-            <p>We have detected unusual activity on your account. For security reasons, we require you to verify your identity immediately to prevent account suspension.</p>
-            <p>Please click on the link below to verify your account:</p>
-            <p><a href="http://fake-bank-verification.com/login" style="color:#007bff; text-decoration:none;">Verify Your Account Now</a> (Malicious Link - Do Not Click)</p>
-            <p>If you fail to verify your account within 24 hours, your account will be temporarily suspended.</p>
-            <p>Thank you for your cooperation.</p>
-            <p>Sincerely,</p>
-            <p>The YourBank Security Team</p>
-        </div>
-        <p style="margin-top: 10px; font-size: smaller;"><b>Note:</b> This is a phishing example. Do not click on the link. Legitimate organizations will rarely ask for sensitive information via email.</p>
-    </div>
-</div>
-</div>
+    <script>
+        let currentTrack = null;
+        let isPlaying = false;
+        let currentCarouselPage = 0;
+        let totalPages = 2;
+        let typingEffectInterval;
+        const overviewFullText = `Phishing attacks are a type of social engineering where malicious actors attempt to trick individuals into revealing sensitive information, such as usernames, passwords, credit card details, and other personal data. They often impersonate legitimate institutions or trusted contacts to deceive their victims. This can lead to significant financial loss, identity theft, and compromise of personal and organizational security.`;
 
 
-<script>
-let currentTrack = null;
-let isPlaying = false;
-let currentCarouselPage = 0;
-let totalPages = 2;
-let typingEffectInterval; // Variable to hold the typing interval
-const overviewFullText = `Phishing attacks are a type of social engineering where malicious actors attempt to trick individuals into revealing sensitive information, such as usernames, passwords, credit card details, and other personal data. They often impersonate legitimate institutions or trusted contacts to deceive their victims. This can lead to significant financial loss, identity theft, and compromise of personal and organizational security.`;
+        const songData = {};
 
 
-const songData = {}; // Removed songData and music player related code
+        function changeSlide(direction) {}
+
+        function toggleMusicMenu() {}
 
 
-function changeSlide(direction) {}
-
-function toggleMusicMenu() {} // Removed toggleMusicMenu function
+        function openMusicModal() {}
 
 
-function openMusicModal() {} // Removed openMusicModal function
+        function selectTrack(trackId) {}
 
 
-function selectTrack(trackId) {} // Removed selectTrack function
+        function closeMusicModal() {}
 
 
-function closeMusicModal() {} // Removed closeMusicModal function
+        function playMusic() {}
 
 
-function playMusic() {} // Removed playMusic function
+        function playPauseMusic() {}
 
 
-function playPauseMusic() {} // Removed playPauseMusic function
+        function updatePlayPauseIcon() {}
 
 
-function updatePlayPauseIcon() {} // Removed updatePlayPauseIcon function
+        function stopCurrentMusic() {}
 
 
-function stopCurrentMusic() {} // Removed stopCurrentMusic function
-
-
-function navigateTo(page) {
-    window.location.href = page;
-}
-
-window.onclick = function(event) {
-    const emailExampleModal = document.getElementById('emailPhishingExampleModal');
-    if (event.target == emailExampleModal) {
-        hideEmailPhishingExampleModal();
-    }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    const video = document.getElementById('backgroundVideo');
-
-    video.addEventListener('error', function(e) {
-        console.error("Error with video playback:", e);
-        video.style.display = 'none';
-        document.body.style.background = '#121212';
-    });
-
-    showOverview();
-});
-
-function showPhishingExamples() {
-    document.getElementById('phishingExamples').classList.add('show');
-}
-
-function hidePhishingExamples() {
-    document.getElementById('phishingExamples').classList.remove('show');
-}
-
-function showEmailPhishingExampleModal() {
-    document.getElementById('emailPhishingExampleModal').classList.add('show');
-}
-
-function hideEmailPhishingExampleModal() {
-    document.getElementById('emailPhishingExampleModal').classList.remove('show');
-}
-
-
-function updateSidebarLinks() {
-    const allLinks = document.querySelectorAll('.sidebar-link');
-    allLinks.forEach(link => {
-        link.classList.remove('active');
-    });
-}
-
-function showOverview() {
-    hideAllContentSections();
-    updateSidebarLinks();
-    document.getElementById('overviewSection').classList.add('show');
-    document.getElementById('overviewLink').classList.add('active');
-    startTypingAnimation(); // Start typing animation when overview is shown
-}
-
-function startTypingAnimation() {
-    const overviewTextElement = document.getElementById('overviewText');
-    overviewTextElement.textContent = ''; // Clear existing text
-    let charIndex = 0;
-
-    clearInterval(typingEffectInterval); // Clear any existing interval
-
-    typingEffectInterval = setInterval(() => {
-        if (charIndex < overviewFullText.length) {
-            overviewTextElement.textContent += overviewFullText.charAt(charIndex);
-            charIndex++;
-        } else {
-            clearInterval(typingEffectInterval); // Stop interval when text is complete
+        function navigateTo(page) {
+            window.location.href = page;
         }
-    }, 20); // Typing speed (milliseconds per character)
-}
+
+        window.onclick = function(event) {
+            const emailExampleModal = document.getElementById('emailPhishingExampleModal');
+            if (event.target == emailExampleModal) {
+                hideEmailPhishingExampleModal();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('backgroundVideo');
+
+            video.addEventListener('error', function(e) {
+                console.error("Error with video playback:", e);
+                video.style.display = 'none';
+                document.body.style.background = '#121212';
+            });
+
+            showOverview();
+        });
+
+        function showPhishingExamples() {
+            document.getElementById('phishingExamples').classList.add('show');
+        }
+
+        function hidePhishingExamples() {
+            document.getElementById('phishingExamples').classList.remove('show');
+        }
+
+        function showEmailPhishingExampleModal() {
+            document.getElementById('emailPhishingExampleModal').classList.add('show');
+        }
+
+        function hideEmailPhishingExampleModal() {
+            document.getElementById('emailPhishingExampleModal').classList.remove('show');
+        }
 
 
-function showHowPhishingWorks() {
-    hideAllContentSections();
-    updateSidebarLinks();
-    document.getElementById('howPhishingWorksSection').classList.add('show');
-    document.getElementById('howPhishingWorksLink').classList.add('active');
-    clearInterval(typingEffectInterval); // Clear typing interval when switching sections
-    document.getElementById('overviewText').textContent = ''; // Clear overview text if switching away
-}
+        function updateSidebarLinks() {
+            const allLinks = document.querySelectorAll('.sidebar-link');
+            allLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+        }
 
-function showEmailPhishing() {
-    hideAllContentSections();
-    updateSidebarLinks();
-    document.getElementById('emailPhishingSection').classList.add('show');
-    document.getElementById('emailPhishingLink').classList.add('active');
-    clearInterval(typingEffectInterval); // Clear typing interval when switching sections
-    document.getElementById('overviewText').textContent = ''; // Clear overview text if switching away
-}
+        function showOverview() {
+            hideAllContentSections();
+            updateSidebarLinks();
+            document.getElementById('overviewSection').classList.add('show');
+            document.getElementById('overviewLink').classList.add('active');
+            startTypingAnimation();
+        }
 
-function showSpearPhishing() {
-    hideAllContentSections();
-    updateSidebarLinks();
-    document.getElementById('spearPhishingSection').classList.add('show');
-    document.getElementById('spearPhishingLink').classList.add('active');
-    clearInterval(typingEffectInterval); // Clear typing interval when switching sections
-    document.getElementById('overviewText').textContent = ''; // Clear overview text if switching away
-}
+        function startTypingAnimation() {
+            const overviewTextElement = document.getElementById('overviewText');
+            overviewTextElement.textContent = '';
+            let charIndex = 0;
 
-function showClonePhishing() {
-    hideAllContentSections();
-    updateSidebarLinks();
-    document.getElementById('clonePhishingSection').classList.add('show');
-    document.getElementById('clonePhishingLink').classList.add('active');
-    clearInterval(typingEffectInterval); // Clear typing interval when switching sections
-    document.getElementById('overviewText').textContent = ''; // Clear overview text if switching away
-}
+            clearInterval(typingEffectInterval);
 
-function showWhaling() {
-    hideAllContentSections();
-    updateSidebarLinks();
-    document.getElementById('whalingSection').classList.add('show');
-    document.getElementById('whalingLink').classList.add('active');
-    clearInterval(typingEffectInterval); // Clear typing interval when switching sections
-    document.getElementById('overviewText').textContent = ''; // Clear overview text if switching away
-}
+            typingEffectInterval = setInterval(() => {
+                if (charIndex < overviewFullText.length) {
+                    overviewTextElement.textContent += overviewFullText.charAt(charIndex);
+                    charIndex++;
+                } else {
+                    clearInterval(typingEffectInterval);
+                }
+            }, 20);
+        }
 
-function showSmishingVishing() {
-    hideAllContentSections();
-    updateSidebarLinks();
-    document.getElementById('smishingVishingSection').classList.add('show');
-    document.getElementById('smishingVishingLink').classList.add('active');
-    clearInterval(typingEffectInterval); // Clear typing interval when switching sections
-    document.getElementById('overviewText').textContent = ''; // Clear overview text if switching away
-}
 
-function showFakeWebsites() {
-    hideAllContentSections();
-    updateSidebarLinks();
-    document.getElementById('fakeWebsitesSection').classList.add('show');
-    document.getElementById('fakeWebsitesLink').classList.add('active');
-    clearInterval(typingEffectInterval); // Clear typing interval when switching sections
-    document.getElementById('overviewText').textContent = ''; // Clear overview text if switching away
-}
+        function showHowPhishingWorks() {
+            hideAllContentSections();
+            updateSidebarLinks();
+            document.getElementById('howPhishingWorksSection').classList.add('show');
+            document.getElementById('howPhishingWorksLink').classList.add('active');
+            clearInterval(typingEffectInterval);
+            document.getElementById('overviewText').textContent = '';
+        }
 
-function hideAllContentSections() {
-    let contentSections = document.querySelectorAll('.recent-container');
-    contentSections.forEach(section => {
-        section.classList.remove('show');
-    });
-}
-</script>
+        function showEmailPhishing() {
+            hideAllContentSections();
+            updateSidebarLinks();
+            document.getElementById('emailPhishingSection').classList.add('show');
+            document.getElementById('emailPhishingLink').classList.add('active');
+            clearInterval(typingEffectInterval);
+            document.getElementById('overviewText').textContent = '';
+        }
+
+        function showSpearPhishing() {
+            hideAllContentSections();
+            updateSidebarLinks();
+            document.getElementById('spearPhishingSection').classList.add('show');
+            document.getElementById('spearPhishingLink').classList.add('active');
+            clearInterval(typingEffectInterval);
+            document.getElementById('overviewText').textContent = '';
+        }
+
+        function showClonePhishing() {
+            hideAllContentSections();
+            updateSidebarLinks();
+            document.getElementById('clonePhishingSection').classList.add('show');
+            document.getElementById('clonePhishingLink').classList.add('active');
+            clearInterval(typingEffectInterval);
+            document.getElementById('overviewText').textContent = '';
+        }
+
+        function showWhaling() {
+            hideAllContentSections();
+            updateSidebarLinks();
+            document.getElementById('whalingSection').classList.add('show');
+            document.getElementById('whalingLink').classList.add('active');
+            clearInterval(typingEffectInterval);
+            document.getElementById('overviewText').textContent = '';
+        }
+
+        function showSmishingVishing() {
+            hideAllContentSections();
+            updateSidebarLinks();
+            document.getElementById('smishingVishingSection').classList.add('show');
+            document.getElementById('smishingVishingLink').classList.add('active');
+            clearInterval(typingEffectInterval);
+            document.getElementById('overviewText').textContent = '';
+        }
+
+        function showFakeWebsites() {
+            hideAllContentSections();
+            updateSidebarLinks();
+            document.getElementById('fakeWebsitesSection').classList.add('show');
+            document.getElementById('fakeWebsitesLink').classList.add('active');
+            clearInterval(typingEffectInterval);
+            document.getElementById('overviewText').textContent = '';
+        }
+
+        function hideAllContentSections() {
+            let contentSections = document.querySelectorAll('.recent-container');
+            contentSections.forEach(section => {
+                section.classList.remove('show');
+            });
+        }
+    </script>
 </body>
 </html>
