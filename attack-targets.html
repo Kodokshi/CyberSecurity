@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attack Targets - CyberShield</title>
+    <style>
+        body {margin: 0;padding: 0;font-family: Arial, sans-serif;background-color: #1C1C1C; /* Black body background */color: #ffffff;overflow-x: hidden;}
+
+        /* Navbar Styles - Copied and Adjusted from mp3.html */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; /* Space out logo and nav */
+            background-color: #1a1a1a;
+            padding: 0 20px;
+            height: 60px;
+            border-bottom: 1px solid #333;
+            position: sticky;  /*  Make it sticky */
+            top: 0;           /*  Stick to the top */
+            left: 0;          /*  Full width */
+            width: 100%;      /*  Full width */
+            z-index: 10;     /*  Ensure it's on top */
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            cursor: pointer;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        /*  Remove Music Dropdown Styles (Not Needed Here) */
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-right: 30px;
+            font-size: 16px;
+            position: relative;
+            display: block; /* Make nav links block for dropdown */
+        }
+
+        .nav-links a.active {
+            color: #3080ff;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -22px;  /*  Position the underline correctly */
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #3080ff;
+        }
+
+        .nav-links a.about-button {
+            background-color: #a0883c;
+            color: #1C1C1C;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-right: 0;  /*  No margin on the last item */
+        }
+
+        .nav-links a.about-button::after {
+            content: none; /*  No underline for the button */
+        }
+
+        /* Dropdown Styles - Copied from mp3.html */
+        .nav-links .dropdown {
+            position: relative;
+        }
+
+        .nav-links .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1a1a1a;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            top: 100%;  /*  Position below the link */
+            left: 0;
+            padding: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #333;
+        }
+
+        .nav-links .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .nav-links .dropdown-content a {
+            color: #ffffff;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            margin: 0;
+            margin-right: 0; /* Override general right margin */
+        }
+
+        .nav-links .dropdown-content a:hover {
+            background-color: #333;
+        }
+
+        /*  Keep the active dropdown item style */
+         .nav-links .dropdown-content a.active-dropdown-item {
+            color: #3080ff;
+        }
+
+
+        .background-video {position: fixed;right: 0;top: 0;width: 100vw;height: 100vh;z-index: -1;object-fit: cover;}
+
+       /* Sidebar Styles - Enhanced Palette Combination */
+        .sidebar {
+            position: fixed;
+            top: 60px; /*  Important:  Match the navbar height */
+            left: 0;
+            width: 220px;
+            height: 100vh;
+            background: linear-gradient(to bottom,  #B0302F, #2A3C69); /* Royal Blue to Dark Gray */
+            border-right: 2px solid #B0302F; /* Crimson Red Border */
+            padding-top: 20px;
+            z-index: 5;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar::after {content: '';position: absolute;bottom: 0;left: 0;width: 100%;height: 20px;background: url('curved-border.png') bottom repeat-x; /*  You might want a crimson or gold version of this image */}
+        .sidebar-link {display: flex;align-items: center;padding: 10px 20px;text-decoration: none;color: #F3EDE3; /* Ivory White Sidebar Text */font-size: 14px;width: 100%;box-sizing: border-box;transition: background-color: 0.2s;position: relative;gap: 10px;border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-left: 25px;}
+        .sidebar-link:hover {background-color: rgba(186, 62, 61, 0.9);} /* Hover - slightly darker red */
+        .sidebar-link.active {color: #E5C100; background-color: rgba(186, 62, 61, 0.9); } /* Active - a bit more intense red */
+        .sidebar-link.active::before {content: '';position: absolute;left: 0;top: 0;bottom: 0;width: 4px; background-color: #C0C0C0;} /* Gold active indicator - thicker */
+        .sidebar-sticker {width: 20px;height: auto;vertical-align: middle;}
+        .sidebar-link.sub-link {padding-left: 45px;font-size: 13px;}
+
+        /*  Important change:  Add padding-top to .content */
+        .content {
+            padding: 80px 20px 20px 240px; /*  Added 80px top padding */
+            min-height: calc(100vh - 60px);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-y: auto;
+            max-height: calc(100vh - 80px);
+        }
+        .content::before {content: '';position: absolute;top: 0;left: 0;width: 100%;height: 100%;background-color: rgba(0, 0, 0, 0.5);z-index: -1;}
+        .content-container {background-color: rgba(245, 235, 215, 0.85);border-radius: 10px;padding: 20px;margin-bottom: 20px;border: 2px solid #B0302F;color: #1C1C1C;position: relative; overflow: hidden;}
+        .content-container h2, .content-container h3 {color: #B0302F;text-align: left;margin-top: 30px;}
+        .content-container p, .content-container li {color: #4A4A4A;text-align: left;line-height: 1.6;margin-bottom: 15px;}
+        .content-container::before {content: '';position: absolute;top: -10px;left: 10px;border-top: 20px solid #B0302F;border-left: 20px solid transparent;width: 0;height: 0;} /* Crimson Red Triangle */
+        .content-container::after {content: '';position: absolute;bottom: -10px;right: 10px;border-bottom: 20px solid #B0302F;border-right: 20px solid transparent;width: 0;height: 0;}/* Crimson Red Triangle */
+        .content-container:last-child {margin-bottom: 0;}
+        .recent-container {display: none;}
+        .recent-container.show {display: block;}
+        h1 {color: #ffffff;margin-bottom: 20px;text-align: left;}
+        h2 {margin-top: 30px;margin-bottom: 15px;text-align: left;}
+        h3 {margin-top: 20px;margin-bottom: 10px;text-align: left;}
+        p {line-height: 1.6;margin-bottom: 15px;text-align: left;}
+        ul {line-height: 1.6;margin-bottom: 15px;padding-left: 20px;text-align: left;}
+        li {margin-bottom: 8px;}
+        .shield-icon {width: 24px;height: 24px;margin-right: 5px;vertical-align: middle;}
+        .animated-overview {color: #E5C100; white-space: pre-line;} /* Gold Animated Text and allow newlines*/
+
+        /* Interactive Card Styles */
+        .card-container {position: relative;width: 280px;height: 350px;margin: 0 0 20px 20px;perspective: 1000px;float: right; clear: right;}
+        .card-flip {position: absolute;width: 100%;height: 100%;transition: transform 0.8s;transform-style: preserve-3d;cursor: pointer;}
+        .card-container.flip .card-flip {transform: rotateY(180deg);}
+        .card-front, .card-back {position: absolute;width: 100%;height: 100%;backface-visibility: hidden;display: flex;justify-content: center;align-items: center;border-radius: 10px;box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);}
+        .card-front {background-color: #4A4A4A;color: #F3EDE3;} /* Deep Gray Front, Ivory White Text */
+        .card-back {background-color: #C0C0C0;color: #1C1C1C;transform: rotateY(180deg);} /* Metallic Silver Back, Black Text */
+        .card-content-front, .card-content-back {padding: 20px;text-align: center;width: 100%;height: 100%;display: flex;flex-direction: column;justify-content: center;}
+        .card-front img, .card-back img {max-width: 100%;max-height: 100%;border-radius: 10px; object-fit: contain; max-height: 280px; max-width: 260px;} /* Adjusted image style */
+
+
+
+        /* Argenti Accent Styles */
+        .argenti-accent {
+            position: relative; /* For pseudo-element positioning */
+        }
+        .argenti-accent::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Argenti/Texture_Argenti_01.png'); /* Replace with your Argenti texture image */
+            background-size: cover; /* Or contain, or a specific size */
+            opacity: 0.1; /* Adjust for subtlety */
+            z-index: -1; /* Behind content */
+            pointer-events: none; /* Don't interfere with clicks */
+        }
+
+        /* Painting Frame Effect */
+        .painting-frame {
+            border: 10px solid #8B4513; /* SaddleBrown - a good starting point */
+            padding: 15px;  /* Space between the image and the frame */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),  /* Outer shadow */
+                        inset 0 2px 4px rgba(255, 255, 255, 0.2); /* Inner highlight */
+            background-color: #F5F5DC; /* Beige - a subtle canvas-like background */
+            display: inline-block; /* Fit to content */
+            border-image: url("Argenti/argenti_border.png") 15% round;
+
+        }
+        .painting-frame img {
+            display: block; /* Remove any extra spacing below the image */
+            border-radius: 5px; /* Slightly rounded corners */
+             max-height: 260px;
+              max-width: 240px;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .nav-links {display: none;}
+            .content {
+                width: 95%;
+                padding: 80px 15px 15px 15px; /* Keep top padding for navbar */
+                margin-left: auto;
+                margin-right: auto;
+                padding-left: 15px;
+            }
+            .sidebar {display: none;}
+            .card-container {float: none; margin: 20px auto;}
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop class="background-video" id="backgroundVideo">
+        <source src="Argenti/Argenti.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Navbar from mp3.html -->
+   <div class="navbar">
+        <div class="logo">
+            <svg class="shield-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>CyberSecs</span>
+        </div>
+        <div class="nav-links">
+            <a href="mp3.html">Home</a>
+            <div class="dropdown">
+                <a href="#" class="active">Threats</a>
+                <div class="dropdown-content">
+                    <a href="attack-targets.html" class="active-dropdown-item">Attack Targets</a>
+                    <a href="phishing-attacks.html">Phishing Attacks</a>
+                    <a href="malware-infections.html">Malware Infections</a>
+                </div>
+            </div>
+            <a href="#">Protection</a>
+            <a href="#">Resources</a>
+            <a href="#" class="about-button">About</a> <!-- Ensure about-button class is here -->
+        </div>
+    </div>
+    <!-- End Navbar -->
+
+    <div class="sidebar">
+        <a href="#" class="sidebar-link active" id="overviewLink" onclick="showOverview()">Overview</a>
+        <a href="#" class="sidebar-link" id="individualsLink" onclick="showIndividuals()">
+            <img src="Argenti/Sticker_PPG_10_Argenti_01.webp" alt="Individuals Sticker" class="sidebar-sticker">
+            Individuals
+        </a>
+        <a href="#" class="sidebar-link" id="businessesLink" onclick="showBusinesses()">
+            <img src="Argenti/Sticker_PPG_10_Argenti_02.webp" alt="Businesses Sticker" class="sidebar-sticker">
+            Businesses
+        </a>
+        <a href="#" class="sidebar-link" id="governmentAgenciesLink" onclick="showGovernmentAgencies()">
+            <img src="Argenti/Sticker_PPG_10_Argenti_03.webp" alt="Government Agencies Sticker" class="sidebar-sticker">
+            Government Agencies
+        </a>
+        <a href="#" class="sidebar-link" id="healthcareInstitutionsLink" onclick="showHealthcareInstitutions()">
+            <img src="Argenti/Sticker_PPG_10_Argenti_04.webp" alt="Healthcare Institutions Sticker" class="sidebar-sticker">
+            Healthcare Institutions
+        </a>
+        <a href="#" class="sidebar-link" id="educationalInstitutionsLink" onclick="showEducationalInstitutions()">
+            <img src="Argenti/Sticker_PPG_10_Argenti_01.webp" alt="Educational Institutions Sticker" class="sidebar-sticker"> <!-- Reused sticker -->
+            Educational Institutions
+        </a>
+    </div>
+
+    <div class="content">
+        <div id="mainContent">
+            <div id="overviewSection" class="content-container recent-container show argenti-accent">
+                <h2>Overview</h2>
+                <p class="animated-overview" id="overviewText"></p>
+            </div>
+
+            <div id="individualsSection" class="content-container recent-container argenti-accent">
+                <h3>Individuals</h3>
+
+                <div class="card-container" id="individualCard">
+                    <div class="card-flip" id="cardFlip">
+                        <div class="card-front">
+                            <div class="card-content-front">
+                                 <!-- Wrap the image in the painting-frame div -->
+                                <div class="painting-frame">
+                                     <img src="Argenti/LC_art.webp" alt="Individuals Card Front">
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <div class="card-content-back">
+                                <p>Individuals are often the easiest entry point due to weaker security measures compared to businesses and governments. They are targeted for their personal information, which can be monetized or used for further attacks.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p>Individuals are often targeted by cyber attackers for various malicious purposes.  These attacks can range from stealing personal data and financial details to hijacking social media accounts for identity theft or fraud. The sheer number of individual internet users and the potential for large-scale automated attacks make individuals a prime target.</p>
+                <p>Common attack vectors targeting individuals include phishing emails, malicious websites, and social engineering techniques designed to trick users into divulging sensitive information or installing malware. Protecting personal information requires vigilance, education, and implementing basic security measures like strong passwords and two-factor authentication.</p>
+            </div>
+
+            <div id="businessesSection" class="content-container recent-container argenti-accent">
+                <h3>Businesses</h3>
+                <p>Businesses, regardless of their size, are highly attractive targets for cyber attacks. They store vast amounts of sensitive customer data, financial information, and proprietary intellectual property. Attackers target businesses for financial gain through data breaches, ransomware attacks, and intellectual property theft. The disruption caused by cyber attacks can also severely impact business operations and reputation.</p>
+                <p>Small and medium-sized businesses are particularly vulnerable as they often lack robust cybersecurity infrastructure and dedicated IT security personnel. However, large corporations face sophisticated, targeted attacks from well-funded threat actors seeking valuable data or attempting to disrupt operations.</p>
+            </div>
+
+            <div id="governmentAgenciesSection" class="content-container recent-container argenti-accent">
+                <h3>Government Agencies</h3>
+                <p>Government agencies are critical infrastructure targets due to the classified and sensitive information they manage, as well as their role in national security and public services. Cyber attacks against government agencies can aim to steal classified information, disrupt essential services, or conduct espionage. These attacks can have significant political and economic consequences, affecting national stability and international relations.</p>
+                <p>State-sponsored actors often lead these sophisticated attacks, leveraging advanced persistent threats (APTs) designed to maintain long-term access to government systems while evading detection. Protecting government systems requires a comprehensive approach including continuous monitoring, regular security assessments, and employee training.</p>
+            </div>
+
+            <div id="healthcareInstitutionsSection" class="content-container recent-container argenti-accent">
+                <h3>Healthcare Institutions</h3>
+                <p>Healthcare institutions, including hospitals and clinics, store highly sensitive medical records and patient data, making them attractive targets for cybercriminals. Attackers may seek to exploit this data for insurance fraud, identity theft, or to disrupt healthcare services for ransom. The compromise of healthcare data can have severe ethical and legal implications, as well as directly impact patient care and safety.</p>
+                <p>The increasing digitization of healthcare records and the integration of connected medical devices have expanded the attack surface for cybercriminals. Healthcare organizations must balance the need for data accessibility with robust security controls to protect sensitive patient information.</p>
+            </div>
+
+            <div id="educationalInstitutionsSection" class="content-container recent-container argenti-accent">
+                <h3>Educational Institutions</h3>
+                <p>Educational institutions, such as universities and schools, hold a wealth of sensitive student data, research materials, and intellectual property. Cyber attackers may target these institutions to steal student personal information, academic research, or gain unauthorized access to institutional systems. The impact of these attacks can range from privacy breaches and financial losses to the compromise of valuable research and educational resources.</p>
+                <p>Universities conducting cutting-edge research are particularly attractive targets for state-sponsored actors and hackers seeking to steal intellectual property. Additionally, the open nature of academic networks and the large number of users can make these institutions challenging to secure effectively.</p>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let typingEffectInterval;
+        const overviewFullText = `Cyber attackers target different entities, including individuals, businesses, and government institutions, aiming to exploit weaknesses and gain unauthorized access to systems, financial data, or confidential records.`;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('backgroundVideo');
+
+            video.addEventListener('error', function(e) {
+                console.error("Error with video playback:", e);
+                video.style.display = 'none';
+                document.body.style.background = '#121212';
+            });
+
+            // Add click event for the individual card
+            document.getElementById('individualCard').addEventListener('click', function() {
+                this.classList.toggle('flip');
+            });
+
+             showOverview(); // Show the overview by default
+        });
+
+        function flipCard() {
+            document.getElementById('cardFlip').classList.toggle('flip');
+        }
+
+       function updateSidebarLinks(activeSectionId) {
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            if (activeSectionId) {
+                const activeLink = document.getElementById(activeSectionId + 'Link');
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
+            }
+        }
+
+       function showOverview() {
+            hideAllSections();
+             updateSidebarLinks('overview');
+            document.getElementById('overviewSection').classList.add('show');
+            document.getElementById('overviewLink').classList.add('active');
+            startTypingAnimation(); // Start typing only for overview
+        }
+         function showIndividuals() {
+            hideAllSections();
+            updateSidebarLinks('individuals');
+            document.getElementById('individualsSection').classList.add('show');
+            document.getElementById('individualsLink').classList.add('active');
+             clearInterval(typingEffectInterval); // Stop typing if not overview
+             document.getElementById('overviewText').textContent = ''; // Clear overview text
+        }
+        function showBusinesses() {
+             hideAllSections();
+            updateSidebarLinks('businesses');
+            document.getElementById('businessesSection').classList.add('show');
+            document.getElementById('businessesLink').classList.add('active');
+             clearInterval(typingEffectInterval); // Stop typing if not overview
+             document.getElementById('overviewText').textContent = ''; // Clear overview text
+        }
+
+        function showGovernmentAgencies() {
+             hideAllSections();
+            updateSidebarLinks('governmentAgencies');
+            document.getElementById('governmentAgenciesSection').classList.add('show');
+            document.getElementById('governmentAgenciesLink').classList.add('active');
+            clearInterval(typingEffectInterval); // Stop typing if not overview
+             document.getElementById('overviewText').textContent = ''; // Clear overview text
+        }
+        function showHealthcareInstitutions() {
+             hideAllSections();
+            updateSidebarLinks('healthcareInstitutions');
+            document.getElementById('healthcareInstitutionsSection').classList.add('show');
+            document.getElementById('healthcareInstitutionsLink').classList.add('active');
+            clearInterval(typingEffectInterval); // Stop typing if not overview
+             document.getElementById('overviewText').textContent = ''; // Clear overview text
+        }
+
+         function showEducationalInstitutions() {
+             hideAllSections();
+            updateSidebarLinks('educationalInstitutions');
+            document.getElementById('educationalInstitutionsSection').classList.add('show');
+            document.getElementById('educationalInstitutionsLink').classList.add('active');
+            clearInterval(typingEffectInterval); // Stop typing if not overview
+            document.getElementById('overviewText').textContent = ''; // Clear overview text
+        }
+
+
+         function hideAllSections() {
+            document.querySelectorAll('.recent-container').forEach(section => {
+                section.classList.remove('show');
+            });
+        }
+
+        function startTypingAnimation() {
+            const overviewTextElement = document.getElementById('overviewText');
+            overviewTextElement.textContent = ''; // Clear existing text
+            let charIndex = 0;
+
+            clearInterval(typingEffectInterval); // Clear any existing interval
+
+            typingEffectInterval = setInterval(() => {
+                if (charIndex < overviewFullText.length) {
+                    overviewTextElement.textContent += overviewFullText.charAt(charIndex);
+                    charIndex++;
+                } else {
+                    clearInterval(typingEffectInterval); // Stop interval when text is complete
+                }
+            }, 20); // Typing speed (milliseconds per character)
+        }
+    </script>
+</body>
+</html>
